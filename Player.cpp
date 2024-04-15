@@ -28,12 +28,12 @@ Player::Player()
 	this->initSprite();
 	_movement_speed = 2.f;
 	
-	_player_heart = new PlayerHeart();
+	// _player_heart = new PlayerHeart();
 }
 
 Player::~Player()
 {
-	delete _player_heart;
+	// delete _player_heart;
 }
 
 // Functions

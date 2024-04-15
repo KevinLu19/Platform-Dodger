@@ -40,6 +40,7 @@ Game::Game()
 	// Map to sprite.
 	_map_sprite.setTexture(_map_texture);
 
+	// Sprite Entites for the game.
 	this->InitPlayer();
 }
 
@@ -91,6 +92,9 @@ void Game::Update()
 			this->_window->close();
 	}
 
+	// Player Heart Animation.
+	_player_heart->Animation();
+
 	 //Move Player
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		this->_player->Move(-1.f, 0.f);
@@ -104,7 +108,7 @@ void Game::Update()
 	// Bullet and player collision detection.
 	if (_bullet->GetBulletSprite().getGlobalBounds().intersects(_player->GetSprite().getGlobalBounds()))
 	{
-		std::cout << "Bullet collision and Player sprite has occured" << std::endl;
+		//std::cout << "Bullet collision and Player sprite has occured" << std::endl;
 
 		// For testing, want the player sprite to move up inicating collision occured.
 		this->_player->Move(0.f, -10.f);
@@ -112,6 +116,7 @@ void Game::Update()
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
 	_bullet->Move();
+
 }
 
 
@@ -122,7 +127,7 @@ void Game::Render()
 
 	// Draw game
 	_window->draw(_map_sprite);		// Map
-	_window->draw(this->_player_heart->GetHeartSprite());
+	_player_heart->Render(*this-> _window);
 	
 	this->_bullet->Render(*this -> _window);
 	this->_player->Render(*this->_window);

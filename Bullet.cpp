@@ -14,7 +14,7 @@ void Bullet::InitTexture()
 void Bullet::InitSprite()
 {
 	// Set the texture to sprite.
-	this->_bullet_sprite.setTexture(this -> _bullet_texture);
+	this->_bullet_sprite.setTexture(this->_bullet_texture);
 	// Resize if needed.
 	this->_bullet_sprite.scale(.15f, .15f);
 
