@@ -4,6 +4,8 @@
 #include "Bullet.h"
 #include "Diamond.h"
 
+
+
 /*
 	Game class acts like a game engine.
 
@@ -24,6 +26,8 @@ private:
 	Player* _player;	
 	Bullet* _bullet;
 	Diamond* _diamond;
+
+	
 
 	// 3 Lives total for the player.
 	PlayerHeart* _player_heart;

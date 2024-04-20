@@ -136,6 +136,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Diamond.cpp" />
+    <ClCompile Include="DiamondItem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PlatformDodger.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Diamond.h" />
+    <ClInclude Include="DiamondItem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHeart.h" />

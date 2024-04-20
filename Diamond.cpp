@@ -1,7 +1,6 @@
 #include "Diamond.h"
 
 // Private Functions
-
 void Diamond::InitText()
 {
 	if (!_diamond_text.loadFromFile("Textures/Diamond.png"))
@@ -26,8 +25,6 @@ Diamond::Diamond()
 	InitText();
 	InitSprite();
 
-	//_animation = new Animation("Textures/Diamond.png", 10, 10);
-
 	_num_frames = 10;
 	_current_frame = 0;
 
@@ -35,6 +32,8 @@ Diamond::Diamond()
 	_diamond_sprite.setPosition(90.f, 90.f);
 
 	_frame_width = _diamond_text.getSize().x / 10;
+
+	_animation = new Animation("Textures/Diamond.png", _num_frames, _frame_width, 12);
 }
 
 // Dest
@@ -44,7 +43,6 @@ Diamond::~Diamond()
 }
 
 // Functions
-
 void Diamond::DiamondAnimate()
 {
 	if (_clock.getElapsedTime().asSeconds() > .30f)
@@ -64,4 +62,9 @@ void Diamond::DiamondAnimate()
 void Diamond::Render(sf::RenderTarget& target)
 {
 	target.draw(this->_diamond_sprite);
+}
+
+void Diamond::AnimateDiamond()
+{
+	_animation->AnimateSpriteSheetSeconds();
 }

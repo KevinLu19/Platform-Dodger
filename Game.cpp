@@ -19,7 +19,7 @@ void Game::InitWindow()
 
 void Game::InitPlayer()
 {
-	this -> _player = new Player();
+	this->_player = new Player();
 	this->_bullet = new Bullet();
 	this->_player_heart = new PlayerHeart();
 	this->_diamond = new Diamond();
@@ -96,6 +96,7 @@ void Game::Update()
 
 	// Player Heart Animation.
 	_player_heart->Animation();
+	_diamond->DiamondAnimate();
 
 	 //Move Player
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -118,8 +119,6 @@ void Game::Update()
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
 	_bullet->Move();
-
-	_diamond->DiamondAnimate();
 }
 
 
@@ -132,7 +131,8 @@ void Game::Render()
 	_window->draw(_map_sprite);		// Map
 	_player_heart->Render(*this-> _window);
 	_diamond->Render(*this-> _window);
-	
+
+
 	this->_bullet->Render(*this -> _window);
 	this->_player->Render(*this->_window);
 

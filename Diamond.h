@@ -31,5 +31,7 @@ public:
 	// Functions
 	void DiamondAnimate();
 	void Render(sf::RenderTarget & target);
+
+	void AnimateDiamond();
 };
 
