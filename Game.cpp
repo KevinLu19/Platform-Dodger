@@ -98,24 +98,28 @@ void Game::Update()
 	_player_heart->Animation();
 	_diamond->DiamondAnimate();
 
-	 //Move Player
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	// //Move Player
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		this->_player->Move(-1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		this->_player->Move(1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		this->_player->Move(0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		this->_player->Move(0.f, 1.f);
+		this->_player->Move(0.f, 1.f);*/
 
-	// Bullet and player collision detection.
-	if (_bullet->GetBulletSprite().getGlobalBounds().intersects(_player->GetSprite().getGlobalBounds()))
-	{
-		//std::cout << "Bullet collision and Player sprite has occured" << std::endl;
+	_player->Update();		// Handles player movement and animation.
+	
 
-		// For testing, want the player sprite to move up inicating collision occured.
-		this->_player->Move(0.f, -10.f);
-	}
+	//// Bullet and player collision detection.
+	//// Test collision.
+	//if (_bullet->GetBulletSprite().getGlobalBounds().intersects(_player->GetSprite().getGlobalBounds()))
+	//{
+	//	//std::cout << "Bullet collision and Player sprite has occured" << std::endl;
+
+	//	// For testing, want the player sprite to move up inicating collision occured.
+	//	this->_player->Move(0.f, -10.f);
+	//}
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
 	_bullet->Move();
@@ -128,9 +132,9 @@ void Game::Render()
 	this -> _window -> clear();
 
 	// Draw game
-	_window->draw(_map_sprite);		// Map
-	_player_heart->Render(*this-> _window);
-	_diamond->Render(*this-> _window);
+	_window->draw(_map_sprite);					// Map
+	_player_heart->Render(*this-> _window);		// Player
+	_diamond->Render(*this-> _window);	
 
 
 	this->_bullet->Render(*this -> _window);

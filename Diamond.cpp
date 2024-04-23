@@ -68,3 +68,4 @@ void Diamond::AnimateDiamond()
 {
 	_animation->AnimateSpriteSheetSeconds();
 }
+

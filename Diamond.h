@@ -33,5 +33,7 @@ public:
 	void Render(sf::RenderTarget & target);
 
 	void AnimateDiamond();
+
+	
 };
 
