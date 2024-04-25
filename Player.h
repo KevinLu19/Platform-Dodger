@@ -24,6 +24,9 @@ private:
 	sf::Texture _hurt;
 
 	float _movement_speed;
+	float _velocity_x = 3.f, _velocity_y = 1.5f;		// Velocity of the player sprite.
+	float _gravity = 0.5f;								// Set gravity for the game.
+	
 
 	sf::FloatRect _player_bounding_box = _sprite.getGlobalBounds();
 
@@ -36,6 +39,10 @@ private:
 	sf::IntRect _rect_sprite;
 	int _frame_width;
 
+	// For dashes sprite.
+	sf::IntRect frame_3_rect;
+	sf::IntRect frame_4_rect;
+
 	// Private Functions
 	void initTexture();
 	void initSprite();
@@ -47,12 +54,16 @@ public:
 	//Functions
 	void Update();
 	void Render(sf::RenderTarget& target);
-	void Move(const float dir_x, const float dir_y);
+	void Move(float dir_x, float dir_y);
 
 	sf::Sprite GetSprite();
 
 	void Animate(int num_frames);
+	void AnimateDash();
+
 	int GetFrameWidth(sf::Texture & texture, int frames);
 	
+	void OnJumpKeyPressed();
+	void OnJumpKeyReleased();
 };
 

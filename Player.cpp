@@ -36,7 +36,7 @@ void Player::initSprite()
 	// Resize sprite.
 	_sprite.scale(1.2f, 1.2f);
 
-	// Set initial sprite Rectangle.		idle = 50 x 63
+	// Set initial sprite Rectangle.					idle = 50 x 63
 	_rect_sprite = sf::IntRect(0, 0, 65, 63);			// x, y, w, h
 
 	_sprite.setTextureRect(_rect_sprite);
@@ -47,20 +47,17 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-	_movement_speed = 2.f;
+	_movement_speed = 2.5f;
 
 	_current_frame = 0;
 	_num_frames = 10;			// Test using Power Up sprite.
 	_frame_width = _powerup.getSize().x / 10;
 
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
-
-	// _player_heart = new PlayerHeart();
 }
 
 Player::~Player()
 {
-	// delete _player_heart;
 }
 
 // Functions
@@ -69,27 +66,56 @@ void Player::Update()
 	// Handles movement for the player class along with sprite switching from direction.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
+		// Want dashing to have a special animation. 
+		// Where when button is held down, animation will just be frame 3 and 4 and repeat that until button is released.
+
 		_sprite.setTexture(_dash_left);
 		GetFrameWidth(_dash_left, 4);
-		Animate(4);
+		// Animate(4);
+
+		// Dashing left or right animation frame 3 and 4 setup.
+		frame_3_rect = sf::IntRect(2 * _frame_width, 0, _frame_width, 63);
+		frame_4_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
+
+		AnimateDash();
+
+		Move(-1.f, 0.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
+		// Want dashing to have a special animation. 
+		// Where when button is held down, animation will just be frame 3 and 4 and repeat that until button is released.
+
 		_sprite.setTexture(_dash_right);
 		GetFrameWidth(_dash_right, 4);
-		Animate(4);
+		//Animate(4);
+
+		// Dashing left or right animation frame 3 and 4 setup.
+		frame_3_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
+		frame_4_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
+
+		AnimateDash();
+
+		Move(1.f, 0.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		_sprite.setTexture(_jump);
 		GetFrameWidth(_jump, 6);
 		Animate(6);
+
+		// Need to implement jump without holding down button.
+		Move(0.f, - 3.f);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		_sprite.setTexture(_falling);
 		GetFrameWidth(_falling, 3);
 		Animate(3);
+
+		// Need to implement falling with gravity.
+
+		Move(0.f, 3.f);
 	}
 	else
 	{
@@ -105,10 +131,10 @@ void Player::Render(sf::RenderTarget& target)
 	target.draw(this->_sprite);
 }
 
-void Player::Move(const float dir_x, const float dir_y)
+// Move given player sprite using _movement_speed variable.
+void Player::Move(float dir_x, float dir_y)
 {
-	this->_sprite.move(this->_movement_speed * dir_x, this->_movement_speed * dir_y);
-
+	_sprite.move(_velocity_x * dir_x, _velocity_y * dir_y);
 }
 
 sf::Sprite Player::GetSprite()
@@ -125,10 +151,10 @@ int Player::GetFrameWidth(sf::Texture & texture, int frames)
 }
 
 
-// Animate Player Sprite
+// Animate Player Sprite(s)
 void Player::Animate(int num_frames)
 {
-	if (_clock.getElapsedTime().asMilliseconds() >= 200.f)
+	if (_clock.getElapsedTime().asMilliseconds() >= 150.f)
 	{
 		//std::cout << "Inside if statement " << std::endl;
 		// Advance to next frame.
@@ -141,4 +167,47 @@ void Player::Animate(int num_frames)
 
 		_clock.restart();
 	}
+}
+
+// Handles the dash left and right sprite. 
+// When A or D is pressed, as long as the button is held down, want to only cycle between frame 3 and 4. 
+void Player::AnimateDash()
+{
+	if (_clock.getElapsedTime().asMilliseconds() >= 150.f)
+	{
+		_current_frame = (_current_frame + 1) % 4;
+
+		// Frame count 3.
+		if (_current_frame == 2)
+		{
+			_current_frame = 3;			// Switch to frame 4. 3 is the index for frame 4.
+			_sprite.setTextureRect(frame_4_rect);
+
+			std::cout << "Current frame = 3. Switching to frame 4." << std::endl;
+		}
+		if (_current_frame == 3)
+		{
+			_current_frame = 2;			// Switch to frame 3. 2 is the idnex for frame 3.
+			_sprite.setTextureRect(frame_3_rect);
+
+			std::cout << "Current frame = 4. Switching to frame 3." << std::endl;
+		}
+
+		_clock.restart();
+	}
+}
+
+
+// Fixed Height Jump
+// ** Important: need to make sure character is on the ground before initiate a jump.
+void Player::OnJumpKeyPressed()
+{
+	_velocity_y = -5.f;			// Gives a vertical boost to the players velocity to start.
+}
+
+// Variabled Height Jumps
+void Player::OnJumpKeyReleased()
+{
+	if (_velocity_y < -6.0f)			// If character still ascending in the jump
+		_velocity_y = -6.0f;			// Limit the speed of ascent.
 }

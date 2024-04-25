@@ -98,7 +98,7 @@ void Game::Update()
 	_player_heart->Animation();
 	_diamond->DiamondAnimate();
 
-	// //Move Player
+	// //Move Player - Old
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		this->_player->Move(-1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
