@@ -73,10 +73,6 @@ void Player::Update()
 		GetFrameWidth(_dash_left, 4);
 		// Animate(4);
 
-		// Dashing left or right animation frame 3 and 4 setup.
-		frame_3_rect = sf::IntRect(2 * _frame_width, 0, _frame_width, 63);
-		frame_4_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
-
 		AnimateDash();
 
 		Move(-1.f, 0.f);
@@ -89,10 +85,6 @@ void Player::Update()
 		_sprite.setTexture(_dash_right);
 		GetFrameWidth(_dash_right, 4);
 		//Animate(4);
-
-		// Dashing left or right animation frame 3 and 4 setup.
-		frame_3_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
-		frame_4_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
 
 		AnimateDash();
 
@@ -154,7 +146,7 @@ int Player::GetFrameWidth(sf::Texture & texture, int frames)
 // Animate Player Sprite(s)
 void Player::Animate(int num_frames)
 {
-	if (_clock.getElapsedTime().asMilliseconds() >= 150.f)
+	if (_clock.getElapsedTime().asMilliseconds() >= 170.f)
 	{
 		//std::cout << "Inside if statement " << std::endl;
 		// Advance to next frame.
@@ -173,21 +165,31 @@ void Player::Animate(int num_frames)
 // When A or D is pressed, as long as the button is held down, want to only cycle between frame 3 and 4. 
 void Player::AnimateDash()
 {
-	if (_clock.getElapsedTime().asMilliseconds() >= 150.f)
+	// Dashing left or right animation frame 3 and 4 setup.
+	frame_3_rect = sf::IntRect(2 * _frame_width, 0, _frame_width, 63);
+	frame_4_rect = sf::IntRect(3 * _frame_width, 0, _frame_width, 63);
+
+	// Will run every 100 milisecond.
+	if (_clock.getElapsedTime().asMilliseconds() >= 100.f)
 	{
 		_current_frame = (_current_frame + 1) % 4;
 
-		// Frame count 3.
-		if (_current_frame == 2)
-		{
-			_current_frame = 3;			// Switch to frame 4. 3 is the index for frame 4.
-			_sprite.setTextureRect(frame_4_rect);
+		//// Frame count 3.
+		//if (_current_frame == 2)
+		//{
+		//	_current_frame = 3;			// Switch to frame 4. 3 is the index for frame 4.
+		//	_sprite.setTextureRect(frame_4_rect);
 
-			std::cout << "Current frame = 3. Switching to frame 4." << std::endl;
-		}
+		//	std::cout << "Current frame = 3. Switching to frame 4." << std::endl;
+		//}
+
+		
+		// Frame count 4.
 		if (_current_frame == 3)
 		{
+			std::cout << "Currently in frame 4" << std::endl;
 			_current_frame = 2;			// Switch to frame 3. 2 is the idnex for frame 3.
+
 			_sprite.setTextureRect(frame_3_rect);
 
 			std::cout << "Current frame = 4. Switching to frame 3." << std::endl;

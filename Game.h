@@ -30,8 +30,9 @@ private:
 	
 
 	// 3 Lives total for the player.
-	PlayerHeart* _player_heart;
-
+	PlayerHeart * _player_heart;
+	PlayerHeart * _player_heart2;
+	PlayerHeart * _player_heart3;
 
 	void InitializerVariables();
 	void InitWindow();

@@ -39,7 +39,7 @@ private:
 	sf::IntRect _rect_sprite;
 	int _frame_width;
 
-	// For dashes sprite.
+	// For dashes sprite. Sprite sheet starts at 0.
 	sf::IntRect frame_3_rect;
 	sf::IntRect frame_4_rect;
 

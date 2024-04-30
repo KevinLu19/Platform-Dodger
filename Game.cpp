@@ -23,6 +23,13 @@ void Game::InitPlayer()
 	this->_bullet = new Bullet();
 	this->_player_heart = new PlayerHeart();
 	this->_diamond = new Diamond();
+
+	// Sets position for heart 2 and heart 3.
+	this->_player_heart2 = new PlayerHeart();
+	_player_heart2->HeartSetPosition(80);
+
+	this->_player_heart3 = new PlayerHeart();
+	_player_heart3->HeartSetPosition(110);
 }
 
 // Constructor
@@ -53,6 +60,8 @@ Game::~Game()
 	delete this->_bullet;
 	delete this->_player_heart;
 	delete this->_diamond;
+	delete this->_player_heart2;
+	delete this->_player_heart3;
 }
 
 // Accessors
@@ -96,6 +105,8 @@ void Game::Update()
 
 	// Player Heart Animation.
 	_player_heart->Animation();
+	_player_heart2->Animation();
+	_player_heart3->Animation();
 	_diamond->DiamondAnimate();
 
 	// //Move Player - Old
@@ -134,6 +145,8 @@ void Game::Render()
 	// Draw game
 	_window->draw(_map_sprite);					// Map
 	_player_heart->Render(*this-> _window);		// Player
+	_player_heart2->Render(*this-> _window);
+	_player_heart3->Render(*this->_window);
 	_diamond->Render(*this-> _window);	
 
 

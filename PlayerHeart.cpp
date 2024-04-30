@@ -27,7 +27,7 @@ PlayerHeart::PlayerHeart()
 {
 	InitText();
 	InitSprite();
-	_num_hearts = 3;	// 3 total hearts for the player.
+	_num_hearts = 3;								// 3 total hearts for the player.
 
 	_heart_sprite.setPosition(50.f, 60.f);			// Permanent position for the heart for player.
 	
@@ -71,4 +71,25 @@ void PlayerHeart::Animation()
 void PlayerHeart::Render(sf::RenderWindow& target)
 {
 	return target.draw(_heart_sprite);
+}
+
+// If num of hearts is 0, game over.
+int PlayerHeart::ChkNumHearts()
+{
+	return sizeof(_heart_container);
+}
+
+
+// reduces heart by 1 as long as it is bigger than 0.
+int PlayerHeart::ReduceHealth()
+{
+	if (_num_hearts < 0)
+	{
+		return _num_hearts -1;
+	}
+}
+
+void PlayerHeart::HeartSetPosition(double x)
+{
+	_heart_sprite.setPosition(x, 60.f);
 }
