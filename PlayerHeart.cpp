@@ -7,7 +7,6 @@ void PlayerHeart::InitText()
 		std::cout << "Cannot load Heart.png onto PlayerHeart::InitText()" << std::endl;
 	else
 		std::cout << "Loaded Heart.png onto PlayerHeart::InitText()" << std::endl;
-	//_heart_texture.loadFromFile("Textures/Heart.png");
 }
 
 void PlayerHeart::InitSprite()

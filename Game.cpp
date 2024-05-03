@@ -92,14 +92,11 @@ void Game::Collision(sf::Sprite player_sprite, sf::Sprite bullet_sprite)
 	{
 		std::cout << "Bullet hit Player" << std::endl;
 
-		//// For testing, want the player sprite to move up inicating collision occured.
-		//this->_player->Move(0.f, -10.f);
-
 		// Animate player hurt sprite.
 		_player->AnimateHurt();
 
 		// Reduce heart by 1.
-
+		//_player->TakeDamage();
 	}
 }
 
@@ -137,16 +134,6 @@ void Game::Update()
 	_player->Update();		// Handles player movement and animation.
 	
 
-	//// Bullet and player collision detection.
-	//// Test collision.
-	//if (_bullet->GetBulletSprite().getGlobalBounds().intersects(_player->GetSprite().getGlobalBounds()))
-	//{
-	//	//std::cout << "Bullet collision and Player sprite has occured" << std::endl;
-
-	//	// For testing, want the player sprite to move up inicating collision occured.
-	//	this->_player->Move(0.f, -10.f);
-	//}
-
 	Collision(_player->GetSprite(), _bullet->GetBulletSprite());
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
@@ -162,7 +149,7 @@ void Game::Render()
 	// Draw game
 	_window->draw(_map_sprite);					// Map
 	
-	_player_heart->Render(*this-> _window);		// Player
+	_player_heart->Render(*this-> _window);		// Player heart
 	_player_heart2->Render(*this-> _window);
 	_player_heart3->Render(*this->_window);
 	

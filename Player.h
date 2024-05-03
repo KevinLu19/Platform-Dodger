@@ -30,7 +30,10 @@ private:
 
 	sf::FloatRect _player_bounding_box = _sprite.getGlobalBounds();
 
+	// Tracking health of the player.
 	PlayerHeart * _player_heart;
+	int _health;
+	std::vector<PlayerHeart> _hearts;		// Hold hearts.
 	
 	// Variable used for sprite animation.
 	int _current_frame;
@@ -67,5 +70,7 @@ public:
 	void OnJumpKeyReleased();
 
 	void AnimateHurt();
+
+	void TakeDamage();
 };
 

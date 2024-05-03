@@ -3,12 +3,6 @@
 // Private Functions
 void Player::initTexture()
 {
-	//// Load a texutre from file.
-	//if (!this->_texture.loadFromFile("Textures/chocobo.png"))
-	//{
-	//	std::cout << "ERROR::PLAYER::INITTEXTURE::Could not load texture from file." << std::endl;
-	//}
-
 	// Loading all the sprite textures.
 	if (!_powerup.loadFromFile("Textures/PowerUp.png"))
 		std::cout << "Cannot load PowerUp Sprite Texture" << std::endl;
@@ -54,6 +48,9 @@ Player::Player()
 	_frame_width = _powerup.getSize().x / 10;
 
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
+
+	_health = 3;				// Player gets a total of 3 hearts.
+
 }
 
 Player::~Player()
@@ -173,16 +170,6 @@ void Player::AnimateDash()
 	if (_clock.getElapsedTime().asMilliseconds() >= 100.f)
 	{
 		_current_frame = (_current_frame + 1) % 4;
-
-		//// Frame count 3.
-		//if (_current_frame == 2)
-		//{
-		//	_current_frame = 3;			// Switch to frame 4. 3 is the index for frame 4.
-		//	_sprite.setTextureRect(frame_4_rect);
-
-		//	std::cout << "Current frame = 3. Switching to frame 4." << std::endl;
-		//}
-
 		
 		// Frame count 4.
 		if (_current_frame == 3)
@@ -216,6 +203,18 @@ void Player::AnimateHurt()
 
 		_clock.restart();
 ;	}
+}
+
+// Whenever player take damage, reduces health by 1.
+void Player::TakeDamage()
+{
+	if (_health > 0)
+	{
+		_health--;
+
+		// Removes health from container.
+		//_hearts.pop_back();
+	}
 }
 
 
