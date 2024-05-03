@@ -141,6 +141,7 @@
     <ClCompile Include="PlatformDodger.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerHeart.cpp" />
+    <ClCompile Include="PlayerPoints.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHeart.h" />
+    <ClInclude Include="PlayerPoints.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

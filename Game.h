@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Diamond.h"
-
+#include "PlayerPoints.h"
 
 
 /*
@@ -33,6 +33,8 @@ private:
 	PlayerHeart * _player_heart;
 	PlayerHeart * _player_heart2;
 	PlayerHeart * _player_heart3;
+
+
 
 	void InitializerVariables();
 	void InitWindow();

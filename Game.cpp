@@ -21,8 +21,9 @@ void Game::InitPlayer()
 {
 	this->_player = new Player();
 	this->_bullet = new Bullet();
-	this->_player_heart = new PlayerHeart();
 	this->_diamond = new Diamond();
+
+	this->_player_heart = new PlayerHeart();
 
 	// Sets position for heart 2 and heart 3.
 	this->_player_heart2 = new PlayerHeart();
@@ -30,6 +31,8 @@ void Game::InitPlayer()
 
 	this->_player_heart3 = new PlayerHeart();
 	_player_heart3->HeartSetPosition(110);
+
+
 }
 
 // Constructor
@@ -40,9 +43,9 @@ Game::Game()
 	this -> InitWindow();
 
 	// Import the map.
-	if (!_map_texture.loadFromFile("Textures/map.jpg"))
+	if (!_map_texture.loadFromFile("Textures/map.png"))
 	{
-		std::cout << "ERROR::GAME::GAME()::can't load map.jpg from Texture folder." << std::endl;
+		std::cout << "ERROR::GAME::GAME()::can't load map.png from Texture folder." << std::endl;
 	}
 
 	// Map to sprite.
@@ -52,14 +55,15 @@ Game::Game()
 	this->InitPlayer();
 }
 
-// Destructor
+// Destructor - Deletes pointer to releif memory.
 Game::~Game()
 {
 	delete this -> _window;
 	delete this->_player;
 	delete this->_bullet;
-	delete this->_player_heart;
 	delete this->_diamond;
+
+	delete this->_player_heart;
 	delete this->_player_heart2;
 	delete this->_player_heart3;
 }
@@ -80,13 +84,22 @@ void Game::Run()
 	}
 }
 
+// Collision for any 2 sprites. Uses their respective sprites to find collisions.
 void Game::Collision(sf::Sprite player_sprite, sf::Sprite bullet_sprite)
 {
 	// Handles the collisions between 2 sprites aka Bullet and player sprite.
 	if (player_sprite.getGlobalBounds().intersects(bullet_sprite.getGlobalBounds()))
 	{
-		// For testing, want the player sprite to move up inicating collision occured.
-		this->_player->Move(0.f, -10.f);
+		std::cout << "Bullet hit Player" << std::endl;
+
+		//// For testing, want the player sprite to move up inicating collision occured.
+		//this->_player->Move(0.f, -10.f);
+
+		// Animate player hurt sprite.
+		_player->AnimateHurt();
+
+		// Reduce heart by 1.
+
 	}
 }
 
@@ -107,6 +120,8 @@ void Game::Update()
 	_player_heart->Animation();
 	_player_heart2->Animation();
 	_player_heart3->Animation();
+
+
 	_diamond->DiamondAnimate();
 
 	// //Move Player - Old
@@ -132,6 +147,8 @@ void Game::Update()
 	//	this->_player->Move(0.f, -10.f);
 	//}
 
+	Collision(_player->GetSprite(), _bullet->GetBulletSprite());
+
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
 	_bullet->Move();
 }
@@ -144,9 +161,11 @@ void Game::Render()
 
 	// Draw game
 	_window->draw(_map_sprite);					// Map
+	
 	_player_heart->Render(*this-> _window);		// Player
 	_player_heart2->Render(*this-> _window);
 	_player_heart3->Render(*this->_window);
+	
 	_diamond->Render(*this-> _window);	
 
 

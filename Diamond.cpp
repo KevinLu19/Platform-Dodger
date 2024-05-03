@@ -69,3 +69,14 @@ void Diamond::AnimateDiamond()
 	_animation->AnimateSpriteSheetSeconds();
 }
 
+// Used to set positions for instances of diamonds and their location.
+void Diamond::DiamondSetPosition(double x, double y)
+{
+	_diamond_sprite.setPosition(x, y);
+}
+
+sf::Sprite Diamond::GetDiamondSprite()
+{
+	return _diamond_sprite;
+}
+

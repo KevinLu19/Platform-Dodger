@@ -199,6 +199,25 @@ void Player::AnimateDash()
 	}
 }
 
+// Animates the hurt sprite.
+void Player::AnimateHurt()
+{
+	_sprite.setTexture(_hurt);
+
+
+	if (_clock.getElapsedTime().asMilliseconds() > 100.f)
+	{
+		_current_frame = (_current_frame + 1) % 4;
+
+		// Update texture rectangle.
+		_rect_sprite.left = _current_frame * _frame_width;
+
+		_sprite.setTextureRect(_rect_sprite);
+
+		_clock.restart();
+;	}
+}
+
 
 // Fixed Height Jump
 // ** Important: need to make sure character is on the ground before initiate a jump.
@@ -213,3 +232,4 @@ void Player::OnJumpKeyReleased()
 	if (_velocity_y < -6.0f)			// If character still ascending in the jump
 		_velocity_y = -6.0f;			// Limit the speed of ascent.
 }
+

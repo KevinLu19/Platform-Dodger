@@ -34,6 +34,8 @@ public:
 
 	void AnimateDiamond();
 
+	void DiamondSetPosition(double x, double y);			// Used to set positions for instances of diamonds and their location.
 	
+	sf::Sprite GetDiamondSprite();
 };
 

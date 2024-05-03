@@ -37,5 +37,6 @@ public:
 
 	int ReduceHealth();
 	void HeartSetPosition(double x);
+
 };
 

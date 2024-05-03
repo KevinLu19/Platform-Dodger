@@ -65,5 +65,7 @@ public:
 	
 	void OnJumpKeyPressed();
 	void OnJumpKeyReleased();
+
+	void AnimateHurt();
 };
 
