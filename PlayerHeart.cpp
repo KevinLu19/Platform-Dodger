@@ -26,9 +26,8 @@ PlayerHeart::PlayerHeart()
 {
 	InitText();
 	InitSprite();
-	_num_hearts = 3;								// 3 total hearts for the player.
-
-	_heart_sprite.setPosition(50.f, 60.f);			// Permanent position for the heart for player.
+	
+	_heart_sprite.setPosition(50.f, 60.f);			// Permanent position for the heart for player. This position is for heart 1.
 	
 	// Sets up Animation Parameters value
 	_num_frames = 8;						// Frames in sprite sheet 
@@ -37,7 +36,6 @@ PlayerHeart::PlayerHeart()
 
 	_ptr_curr_frame = &_current_frame;
 }
-
 // Destructor
 PlayerHeart::~PlayerHeart()
 {
@@ -54,7 +52,6 @@ void PlayerHeart::Animation()
 	// Animates the heart sprite. Loops through all 8 frames in 200 miliseconds.
 	if (_clock.getElapsedTime().asMilliseconds() >= 200.f)
 	{
-		//std::cout << "Inside if statement " << std::endl;
 		// Advance to next frame.
 		_current_frame = (_current_frame + 1) % _num_frames;
 
@@ -67,28 +64,14 @@ void PlayerHeart::Animation()
 	}
 }
 
+// Draw heart itself.
 void PlayerHeart::Render(sf::RenderWindow& target)
 {
-	return target.draw(_heart_sprite);
+	target.draw(_heart_sprite);
 }
 
-// If num of hearts is 0, game over.
-int PlayerHeart::ChkNumHearts()
-{
-	return sizeof(_heart_container);
-}
-
-
-// reduces heart by 1 as long as it is bigger than 0.
-int PlayerHeart::ReduceHealth()
-{
-	if (_num_hearts < 0)
-	{
-		return _num_hearts -1;
-	}
-}
-
+// sets the positions for the heart. Only changing the x position as the y position will be fixed.
 void PlayerHeart::HeartSetPosition(double x)
 {
-	_heart_sprite.setPosition(x, 60.f);
+	_heart_sprite.setPosition(x, 60);
 }

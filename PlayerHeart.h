@@ -13,10 +13,6 @@ private:
 
 	sf::IntRect _rect_source_sprite;			// Specifies the rectangle around sprite.
 
-	int _num_hearts;
-	int _heart_container[3];					// Holds the maximum amount of hearts (5).
-
-
 	// Animation Parameters.
 	sf::Clock _clock;
 	int _num_frames, _frame_duration, _current_frame;
@@ -32,11 +28,8 @@ public:
 	sf::Sprite GetHeartSprite();
 
 	void Animation();
-	void Render(sf::RenderWindow & target);
-	int ChkNumHearts();
+	void Render(sf::RenderWindow & target);				// Draws heart itself.
 
-	int ReduceHealth();
 	void HeartSetPosition(double x);
-
 };
 

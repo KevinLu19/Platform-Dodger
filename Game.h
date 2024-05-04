@@ -4,7 +4,7 @@
 #include "Bullet.h"
 #include "Diamond.h"
 #include "PlayerPoints.h"
-
+#include <vector>
 
 /*
 	Game class acts like a game engine.
@@ -33,7 +33,7 @@ private:
 	PlayerHeart * _player_heart;
 	PlayerHeart * _player_heart2;
 	PlayerHeart * _player_heart3;
-
+	std::vector<PlayerHeart> _hearts;			// Holds the hearts.
 
 
 	void InitializerVariables();

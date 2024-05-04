@@ -4,8 +4,9 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include "PlayerHeart.h"
+#include <vector>
 
-class Player
+class Player : PlayerHeart
 {
 private:
 	sf::Sprite _sprite;
@@ -32,8 +33,6 @@ private:
 
 	// Tracking health of the player.
 	PlayerHeart * _player_heart;
-	int _health;
-	std::vector<PlayerHeart> _hearts;		// Hold hearts.
 	
 	// Variable used for sprite animation.
 	int _current_frame;
@@ -70,7 +69,5 @@ public:
 	void OnJumpKeyReleased();
 
 	void AnimateHurt();
-
-	void TakeDamage();
 };
 

@@ -48,9 +48,6 @@ Player::Player()
 	_frame_width = _powerup.getSize().x / 10;
 
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
-
-	_health = 3;				// Player gets a total of 3 hearts.
-
 }
 
 Player::~Player()
@@ -205,17 +202,6 @@ void Player::AnimateHurt()
 ;	}
 }
 
-// Whenever player take damage, reduces health by 1.
-void Player::TakeDamage()
-{
-	if (_health > 0)
-	{
-		_health--;
-
-		// Removes health from container.
-		//_hearts.pop_back();
-	}
-}
 
 
 // Fixed Height Jump

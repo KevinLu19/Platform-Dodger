@@ -23,16 +23,23 @@ void Game::InitPlayer()
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
 
-	this->_player_heart = new PlayerHeart();
+	//this->_player_heart = new PlayerHeart();
 
-	// Sets position for heart 2 and heart 3.
-	this->_player_heart2 = new PlayerHeart();
-	_player_heart2->HeartSetPosition(80);
+	//// Sets position for heart 2 and heart 3.
+	//this->_player_heart2 = new PlayerHeart();
+	//_player_heart2->HeartSetPosition(80);
 
-	this->_player_heart3 = new PlayerHeart();
-	_player_heart3->HeartSetPosition(110);
+	//this->_player_heart3 = new PlayerHeart();
+	//_player_heart3->HeartSetPosition(110);
 
+	// Store PlayerHeart Objects.
+	for (int i = 0; i < 3; ++i)
+	{
+		_player_heart = new PlayerHeart();
+		_player_heart->HeartSetPosition((i * 30) + 50);			// Sets position for each of the heart.
 
+		_hearts.push_back(* _player_heart);				// Pushback will call the constructor. Emplace_back will not.
+	}
 }
 
 // Constructor
@@ -114,10 +121,14 @@ void Game::Update()
 	}
 
 	// Player Heart Animation.
-	_player_heart->Animation();
+	/*_player_heart->Animation();
 	_player_heart2->Animation();
-	_player_heart3->Animation();
+	_player_heart3->Animation();*/
 
+	for (auto& heart : _hearts)
+	{
+		heart.Animation();
+	}
 
 	_diamond->DiamondAnimate();
 
@@ -149,10 +160,15 @@ void Game::Render()
 	// Draw game
 	_window->draw(_map_sprite);					// Map
 	
-	_player_heart->Render(*this-> _window);		// Player heart
-	_player_heart2->Render(*this-> _window);
-	_player_heart3->Render(*this->_window);
+	//_player_heart->Render(*this-> _window);		// Player heart
+	//_player_heart2->Render(*this-> _window);
+	//_player_heart3->Render(*this->_window);
 	
+	for (auto & hearts : _hearts)
+	{
+		hearts.Render(*this->_window);
+	}
+
 	_diamond->Render(*this-> _window);	
 
 
