@@ -5,6 +5,7 @@
 #include "Diamond.h"
 #include "PlayerPoints.h"
 #include <vector>
+#include "Platform.h"
 
 /*
 	Game class acts like a game engine.
@@ -22,18 +23,19 @@ private:
 	sf::Texture _map_texture;
 	sf::Sprite _map_sprite;
 
+	// Platform for the game.
+	//Platform * _platform;
+
 	// Different Classes.
 	Player* _player;	
 	Bullet* _bullet;
 	Diamond* _diamond;
 
-	
 
 	// 3 Lives total for the player.
 	PlayerHeart * _player_heart;
-	PlayerHeart * _player_heart2;
-	PlayerHeart * _player_heart3;
 	std::vector<PlayerHeart> _hearts;			// Holds the hearts.
+	int _health;
 
 
 	void InitializerVariables();

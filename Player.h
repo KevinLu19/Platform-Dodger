@@ -24,10 +24,15 @@ private:
 	sf::Texture _falling;
 	sf::Texture _hurt;
 
+	// Handling Speed/velocity
 	float _movement_speed;
-	float _velocity_x = 3.f, _velocity_y = 1.5f;		// Velocity of the player sprite.
-	float _gravity = 0.5f;								// Set gravity for the game.
-	
+	float _velocity_x, _velocity_y;						// Velocity of the player sprite.
+	float _gravity;										// Set gravity for the game.
+	float _jump_height;
+	float _position_x, _position_y;						// Position of the character.
+	sf::Vector2f _movement;
+	sf::Vector2f _velocity;
+	float delta_time;
 
 	sf::FloatRect _player_bounding_box = _sprite.getGlobalBounds();
 
@@ -69,5 +74,8 @@ public:
 	void OnJumpKeyReleased();
 
 	void AnimateHurt();
+
+
+	void TakeDamage(int& health, std::vector<PlayerHeart> & _hearts);
 };
 

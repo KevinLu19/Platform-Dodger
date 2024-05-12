@@ -31,5 +31,6 @@ public:
 	void Render(sf::RenderWindow & target);				// Draws heart itself.
 
 	void HeartSetPosition(double x);
+
 };
 

@@ -22,23 +22,17 @@ void Game::InitPlayer()
 	this->_player = new Player();
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
+	//this->_platform = new Platform(sf::Vector2f(600.f, 300.f));
 
-	//this->_player_heart = new PlayerHeart();
-
-	//// Sets position for heart 2 and heart 3.
-	//this->_player_heart2 = new PlayerHeart();
-	//_player_heart2->HeartSetPosition(80);
-
-	//this->_player_heart3 = new PlayerHeart();
-	//_player_heart3->HeartSetPosition(110);
+	_health = 3;												// 3 lives for the player.
 
 	// Store PlayerHeart Objects.
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < _health; ++i)
 	{
 		_player_heart = new PlayerHeart();
 		_player_heart->HeartSetPosition((i * 30) + 50);			// Sets position for each of the heart.
 
-		_hearts.push_back(* _player_heart);				// Pushback will call the constructor. Emplace_back will not.
+		_hearts.push_back(* _player_heart);						// Pushback will call the constructor. Emplace_back will not.
 	}
 }
 
@@ -50,7 +44,7 @@ Game::Game()
 	this -> InitWindow();
 
 	// Import the map.
-	if (!_map_texture.loadFromFile("Textures/map.png"))
+	if (!_map_texture.loadFromFile("Textures/map.jpg"))
 	{
 		std::cout << "ERROR::GAME::GAME()::can't load map.png from Texture folder." << std::endl;
 	}
@@ -69,10 +63,9 @@ Game::~Game()
 	delete this->_player;
 	delete this->_bullet;
 	delete this->_diamond;
+	//delete this->_platform;
 
 	delete this->_player_heart;
-	delete this->_player_heart2;
-	delete this->_player_heart3;
 }
 
 // Accessors
@@ -97,13 +90,13 @@ void Game::Collision(sf::Sprite player_sprite, sf::Sprite bullet_sprite)
 	// Handles the collisions between 2 sprites aka Bullet and player sprite.
 	if (player_sprite.getGlobalBounds().intersects(bullet_sprite.getGlobalBounds()))
 	{
-		std::cout << "Bullet hit Player" << std::endl;
+		//std::cout << "Bullet hit Player" << std::endl;
 
 		// Animate player hurt sprite.
 		_player->AnimateHurt();
 
 		// Reduce heart by 1.
-		//_player->TakeDamage();
+		_player->TakeDamage(_health, _hearts);
 	}
 }
 
@@ -120,11 +113,8 @@ void Game::Update()
 			this->_window->close();
 	}
 
-	// Player Heart Animation.
-	/*_player_heart->Animation();
-	_player_heart2->Animation();
-	_player_heart3->Animation();*/
 
+	// Animate hearts in the hearts vector.
 	for (auto& heart : _hearts)
 	{
 		heart.Animation();
@@ -132,19 +122,7 @@ void Game::Update()
 
 	_diamond->DiamondAnimate();
 
-	// //Move Player - Old
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		this->_player->Move(-1.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		this->_player->Move(1.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		this->_player->Move(0.f, -1.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		this->_player->Move(0.f, 1.f);*/
-
 	_player->Update();		// Handles player movement and animation.
-	
-
 	Collision(_player->GetSprite(), _bullet->GetBulletSprite());
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
@@ -158,12 +136,10 @@ void Game::Render()
 	this -> _window -> clear();
 
 	// Draw game
-	_window->draw(_map_sprite);					// Map
+	_window->draw(_map_sprite);												// Map
+	//_platform->Render(*this->_window);										// Platform
 	
-	//_player_heart->Render(*this-> _window);		// Player heart
-	//_player_heart2->Render(*this-> _window);
-	//_player_heart3->Render(*this->_window);
-	
+	// Render all the hearts in the heart vector.
 	for (auto & hearts : _hearts)
 	{
 		hearts.Render(*this->_window);

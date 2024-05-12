@@ -41,13 +41,13 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-	_movement_speed = 2.5f;
+	_movement_speed = 350.0f;					// Movespeed for the game.
 
-	_current_frame = 0;
-	_num_frames = 10;			// Test using Power Up sprite.
+	_current_frame = 0;	
 	_frame_width = _powerup.getSize().x / 10;
 
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
+	delta_time = _clock.restart().asSeconds();	// Clock used for movement per second. Clock runs per second.
 }
 
 Player::~Player()
@@ -57,6 +57,9 @@ Player::~Player()
 // Functions
 void Player::Update()
 {
+	
+	sf::Vector2f movement(0.0f, 0.0f);
+
 	// Handles movement for the player class along with sprite switching from direction.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -69,7 +72,8 @@ void Player::Update()
 
 		AnimateDash();
 
-		Move(-1.f, 0.f);
+		//Move(-1.f, 0.f);
+		movement.x -= _movement_speed * delta_time;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
@@ -82,7 +86,8 @@ void Player::Update()
 
 		AnimateDash();
 
-		Move(1.f, 0.f);
+		//Move(1.f, 0.f);
+		movement.x += _movement_speed * delta_time;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
@@ -91,7 +96,9 @@ void Player::Update()
 		Animate(6);
 
 		// Need to implement jump without holding down button.
-		Move(0.f, - 3.f);
+		//Move(0.f, -3.f);
+
+		movement.y -= _movement_speed * delta_time;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -101,7 +108,8 @@ void Player::Update()
 
 		// Need to implement falling with gravity.
 
-		Move(0.f, 3.f);
+		//Move(0.f, 3.f);
+		movement.y += _movement_speed * delta_time;
 	}
 	else
 	{
@@ -110,6 +118,9 @@ void Player::Update()
 		GetFrameWidth(_idle, 4);
 		Animate(4);
 	}
+
+	// Move the sprite
+	_sprite.move(movement);
 }
 
 void Player::Render(sf::RenderTarget& target)
@@ -120,7 +131,7 @@ void Player::Render(sf::RenderTarget& target)
 // Move given player sprite using _movement_speed variable.
 void Player::Move(float dir_x, float dir_y)
 {
-	_sprite.move(_velocity_x * dir_x, _velocity_y * dir_y);
+	_sprite.move(_velocity_x + dir_x, _velocity_y + dir_y);
 }
 
 sf::Sprite Player::GetSprite()
@@ -142,7 +153,8 @@ void Player::Animate(int num_frames)
 {
 	if (_clock.getElapsedTime().asMilliseconds() >= 170.f)
 	{
-		//std::cout << "Inside if statement " << std::endl;
+		//std::cout << "Inside Player::Aniamte() Function in Player.cpp file" << std::endl;
+
 		// Advance to next frame.
 		_current_frame = (_current_frame + 1) % num_frames;
 
@@ -171,12 +183,12 @@ void Player::AnimateDash()
 		// Frame count 4.
 		if (_current_frame == 3)
 		{
-			std::cout << "Currently in frame 4" << std::endl;
+			//std::cout << "Currently in frame 4" << std::endl;
 			_current_frame = 2;			// Switch to frame 3. 2 is the idnex for frame 3.
 
 			_sprite.setTextureRect(frame_3_rect);
 
-			std::cout << "Current frame = 4. Switching to frame 3." << std::endl;
+			//std::cout << "Current frame = 4. Switching to frame 3." << std::endl;
 		}
 
 		_clock.restart();
@@ -202,19 +214,16 @@ void Player::AnimateHurt()
 ;	}
 }
 
-
-
-// Fixed Height Jump
-// ** Important: need to make sure character is on the ground before initiate a jump.
-void Player::OnJumpKeyPressed()
+void Player::TakeDamage(int & health, std::vector<PlayerHeart> & _hearts)
 {
-	_velocity_y = -5.f;			// Gives a vertical boost to the players velocity to start.
-}
+	if (health > 0)
+	{
+		_hearts.pop_back();		// Pops out one of the heart.
 
-// Variabled Height Jumps
-void Player::OnJumpKeyReleased()
-{
-	if (_velocity_y < -6.0f)			// If character still ascending in the jump
-		_velocity_y = -6.0f;			// Limit the speed of ascent.
+		health--;				// Reduces health by 1.
+	}
+	/*else
+	{
+		std::cout << "You've ran out of lives." << std::endl;
+	}*/
 }
-
