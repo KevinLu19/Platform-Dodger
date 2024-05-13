@@ -34,6 +34,12 @@ private:
 	sf::Vector2f _velocity;
 	float delta_time;
 
+	// For Jumping
+	float _jump_velocity;
+	bool _is_jumping;
+
+	bool _heart_taken;									// Used for TakeDamage(). Used for allowing only one heart to be taken.
+
 	sf::FloatRect _player_bounding_box = _sprite.getGlobalBounds();
 
 	// Tracking health of the player.

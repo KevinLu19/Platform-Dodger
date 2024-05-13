@@ -41,13 +41,19 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-	_movement_speed = 350.0f;					// Movespeed for the game.
+	_movement_speed = 700.0f;					// Movespeed for the game.
 
 	_current_frame = 0;	
 	_frame_width = _powerup.getSize().x / 10;
 
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
 	delta_time = _clock.restart().asSeconds();	// Clock used for movement per second. Clock runs per second.
+
+	_gravity = 100.0f;							// Gravity strength.
+	_jump_velocity = 0.0f;
+	_is_jumping = false;
+
+	_heart_taken = false;						// Used for TakeDamage()
 }
 
 Player::~Player()
@@ -58,7 +64,7 @@ Player::~Player()
 void Player::Update()
 {
 	
-	sf::Vector2f movement(0.0f, 0.0f);
+	sf::Vector2f movement(0.0f, 0.0f);				// Handles player movement.
 
 	// Handles movement for the player class along with sprite switching from direction.
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -110,6 +116,30 @@ void Player::Update()
 
 		//Move(0.f, 3.f);
 		movement.y += _movement_speed * delta_time;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))			// Handles jump.
+	{
+		_sprite.setTexture(_jump);
+		Animate(6);
+
+		_is_jumping = true;
+		_jump_velocity = -1500.0f;										// Iniital jump velocity.
+
+		// Apply Gravity if jumping
+		if (_is_jumping)
+		{
+			_jump_velocity += _gravity * delta_time;
+			movement.y += _jump_velocity * delta_time;
+
+			// Check if sprite landed.
+			if (_sprite.getPosition().y >= 500)
+			{
+				_is_jumping = false;
+				_jump_velocity = 0.0f;
+
+				_sprite.setPosition(_sprite.getPosition().x, 500);		// Set player on the ground
+			}
+		}
 	}
 	else
 	{
@@ -216,14 +246,12 @@ void Player::AnimateHurt()
 
 void Player::TakeDamage(int & health, std::vector<PlayerHeart> & _hearts)
 {
-	if (health > 0)
+	if (health > 0 && _heart_taken == false)
 	{
 		_hearts.pop_back();		// Pops out one of the heart.
 
 		health--;				// Reduces health by 1.
+
+		_heart_taken = true;	// After reduced heart by 1, flag heart taken to be true.
 	}
-	/*else
-	{
-		std::cout << "You've ran out of lives." << std::endl;
-	}*/
 }

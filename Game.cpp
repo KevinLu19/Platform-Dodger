@@ -44,13 +44,14 @@ Game::Game()
 	this -> InitWindow();
 
 	// Import the map.
-	if (!_map_texture.loadFromFile("Textures/map.jpg"))
+	if (!_map_texture.loadFromFile("Textures/map.png"))
 	{
 		std::cout << "ERROR::GAME::GAME()::can't load map.png from Texture folder." << std::endl;
 	}
 
-	// Map to sprite.
+	// Map to sprite. 
 	_map_sprite.setTexture(_map_texture);
+	_map_sprite.scale(2.5f, 2.5f);								// Scale map
 
 	// Sprite Entites for the game.
 	this->InitPlayer();
@@ -136,8 +137,7 @@ void Game::Render()
 	this -> _window -> clear();
 
 	// Draw game
-	_window->draw(_map_sprite);												// Map
-	//_platform->Render(*this->_window);										// Platform
+	_window->draw(_map_sprite);													// Map
 	
 	// Render all the hearts in the heart vector.
 	for (auto & hearts : _hearts)
