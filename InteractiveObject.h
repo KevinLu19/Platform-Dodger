@@ -17,9 +17,12 @@ private:
 
 public:
 	InteractiveObject(int pos_x, int pos_y);
+	InteractiveObject();
 	~InteractiveObject();
 
 	void Render(sf::RenderTarget& target);
 	void SetPosition(int pos_x, int pos_y);
+
+	sf::Sprite GetSprite();
 };
 

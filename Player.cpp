@@ -55,12 +55,12 @@ Player::Player()
 
 	_heart_taken = false;						// Used for TakeDamage()
 
-	
+	_interactive_obj = new InteractiveObject();	// Objects such as statues, etc.
 }
 
 Player::~Player()
 {
-
+	delete this->_interactive_obj;
 }
 
 // Functions
@@ -98,17 +98,18 @@ void Player::Update()
 		movement.x += _movement_speed * delta_time;
 	}
 	
-	// Disable W button because want to use w on special occasions such as "climbing ladder, power up on statues, etc"
+	//Disable W button because want to use w on special occasions such as "climbing ladder, power up on statues, etc"
 	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	//{
-	//	_sprite.setTexture(_jump);
-	//	GetFrameWidth(_jump, 6);
-	//	Animate(6);
+	//	//_sprite.setTexture(_jump);
+	//	//GetFrameWidth(_jump, 6);
+	//	//Animate(6);
 
-	//	// Need to implement jump without holding down button.
-	//	//Move(0.f, -3.f);
+	//	//// Need to implement jump without holding down button.
+	//	////Move(0.f, -3.f);
 
-	//	movement.y -= _movement_speed * delta_time;
+	//	//movement.y -= _movement_speed * delta_time;
+
 	//}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -154,12 +155,35 @@ void Player::Update()
 		Animate(4);
 	}
 	
-	
+	//// Checks if player bounding box intersets with interactive obj along with w is pressed, do power up animation. 
+	//if (_sprite.getGlobalBounds().intersects(_interactive_obj->GetSprite().getGlobalBounds()))
+	//{
+	//	_sprite.setTexture(_powerup);
+	//	Animate(10);
+
+	//	// Do some kind of stat powerup or item power up here.
+	//	std::cout << "You've powered up" << std::endl;
+	//}
+
+	PowerUp(_interactive_obj->GetSprite());
 
 	// Move the sprite
 	_sprite.move(movement);
 
 }
+
+void Player::PowerUp(sf::Sprite immoveable_obj_sprite)
+{
+	if (_sprite.getGlobalBounds().intersects(immoveable_obj_sprite.getGlobalBounds()))
+	{
+		_sprite.setTexture(_powerup);
+		Animate(10);
+
+		// Do some kind of stat powerup or item power up here.
+		std::cout << "You've powered up" << std::endl;
+	}
+}
+
 
 void Player::Render(sf::RenderTarget& target)
 {
@@ -257,7 +281,6 @@ void Player::TakeDamage(int & health, std::vector<PlayerHeart> & _hearts)
 	if (health > 0 && _heart_taken == false)
 	{
 		_hearts.pop_back();		// Pops out one of the heart.
-
 		health--;				// Reduces health by 1.
 
 		_heart_taken = true;	// After reduced heart by 1, flag heart taken to be true.

@@ -17,13 +17,21 @@ void InteractiveObject::InitSprite()
 	_sprite.scale(1.5f, 1.5f);
 }
 
-// Const 
+// Const - With X, Y parameters.
 InteractiveObject::InteractiveObject(int pos_x, int pos_y)
 {
 	InitText();
 	InitSprite();
 
 	SetPosition(pos_x, pos_y);
+}
+
+// Const for object creation.
+InteractiveObject::InteractiveObject()
+{
+	InitText();
+	InitSprite();
+
 }
 
 // Dest
@@ -42,3 +50,9 @@ void InteractiveObject::SetPosition(int pos_x, int pos_y)
 {
 	_sprite.setPosition(pos_x, pos_y);
 }
+
+sf::Sprite InteractiveObject::GetSprite()
+{
+	return _sprite;
+}
+

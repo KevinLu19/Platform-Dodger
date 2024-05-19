@@ -5,8 +5,8 @@ void PlayerHeart::InitText()
 {
 	if (!_heart_texture.loadFromFile("Textures/Heart.png"))
 		std::cout << "Cannot load Heart.png onto PlayerHeart::InitText()" << std::endl;
-	else
-		std::cout << "Loaded Heart.png onto PlayerHeart::InitText()" << std::endl;
+	/*else
+		std::cout << "Loaded Heart.png onto PlayerHeart::InitText()" << std::endl;*/
 }
 
 void PlayerHeart::InitSprite()
@@ -14,7 +14,7 @@ void PlayerHeart::InitSprite()
 	_heart_sprite.setTexture(this->_heart_texture);
 
 	_heart_sprite.scale(2.f, 2.f);								// Rescale the heart sprite.
-	std::cout << "Bound texture to sprite in PlayerHeart::InitSprite() function" << std::endl;
+	//std::cout << "Bound texture to sprite in PlayerHeart::InitSprite() function" << std::endl;
 
 	this->_rect_source_sprite = sf::IntRect(0, 0, 18, 14);		// x, y, w, h
 	_heart_sprite.setTextureRect(_rect_source_sprite);			// First heart on the sprite sheet coord (17, 14)

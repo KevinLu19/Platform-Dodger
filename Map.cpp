@@ -9,7 +9,7 @@ void Map::InitText()
 void Map::InitSprite()
 {
 	_sprite.setTexture(_map);
-	_sprite.scale(2.7f, 1.8f);
+	_sprite.scale(2.0, 2.0f);
 }
 
 Map::Map()

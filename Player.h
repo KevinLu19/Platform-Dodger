@@ -5,6 +5,7 @@
 #include <iostream>
 #include "PlayerHeart.h"
 #include <vector>
+#include "InteractiveObject.h"
 
 
 class Player : PlayerHeart
@@ -57,6 +58,8 @@ private:
 	sf::IntRect frame_3_rect;
 	sf::IntRect frame_4_rect;
 
+	// For Interactive Objects such as statues
+	InteractiveObject * _interactive_obj;
 
 	// Private Functions
 	void initTexture();
@@ -81,5 +84,7 @@ public:
 	void AnimateHurt();
 
 	void TakeDamage(int& health, std::vector<PlayerHeart> & _hearts);
+	
+	void PowerUp(sf::Sprite immoveable_obj_sprite);
 };
 
