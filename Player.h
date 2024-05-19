@@ -6,6 +6,7 @@
 #include "PlayerHeart.h"
 #include <vector>
 
+
 class Player : PlayerHeart
 {
 private:
@@ -56,6 +57,7 @@ private:
 	sf::IntRect frame_3_rect;
 	sf::IntRect frame_4_rect;
 
+
 	// Private Functions
 	void initTexture();
 	void initSprite();
@@ -75,12 +77,8 @@ public:
 	void AnimateDash();
 
 	int GetFrameWidth(sf::Texture & texture, int frames);
-	
-	void OnJumpKeyPressed();
-	void OnJumpKeyReleased();
 
 	void AnimateHurt();
-
 
 	void TakeDamage(int& health, std::vector<PlayerHeart> & _hearts);
 };

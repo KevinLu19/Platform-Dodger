@@ -19,9 +19,13 @@ void Game::InitWindow()
 
 void Game::InitPlayer()
 {
+	this->_map = new Map();
 	this->_player = new Player();
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
+	
+	this->_game_obj = new InteractiveObject(1100, 490);
+
 	//this->_platform = new Platform(sf::Vector2f(600.f, 300.f));
 
 	_health = 3;												// 3 lives for the player.
@@ -43,16 +47,6 @@ Game::Game()
 	this -> InitializerVariables();
 	this -> InitWindow();
 
-	// Import the map.
-	if (!_map_texture.loadFromFile("Textures/map.png"))
-	{
-		std::cout << "ERROR::GAME::GAME()::can't load map.png from Texture folder." << std::endl;
-	}
-
-	// Map to sprite. 
-	_map_sprite.setTexture(_map_texture);
-	_map_sprite.scale(2.5f, 2.5f);								// Scale map
-
 	// Sprite Entites for the game.
 	this->InitPlayer();
 }
@@ -60,10 +54,13 @@ Game::Game()
 // Destructor - Deletes pointer to releif memory.
 Game::~Game()
 {
+	
 	delete this -> _window;
 	delete this->_player;
 	delete this->_bullet;
 	delete this->_diamond;
+	delete this->_game_obj;
+
 	//delete this->_platform;
 
 	delete this->_player_heart;
@@ -137,7 +134,8 @@ void Game::Render()
 	this -> _window -> clear();
 
 	// Draw game
-	_window->draw(_map_sprite);													// Map
+	_map->Render(*this->_window);												// Map
+	
 	
 	// Render all the hearts in the heart vector.
 	for (auto & hearts : _hearts)
@@ -145,12 +143,13 @@ void Game::Render()
 		hearts.Render(*this->_window);
 	}
 
+	// Draw everything else.
+	_game_obj->Render(*this->_window);											// Statue that will be an interactive obj.
 	_diamond->Render(*this-> _window);	
 
 
 	this->_bullet->Render(*this -> _window);
 	this->_player->Render(*this->_window);
-
 	
 	// Display everything above.
 	this->_window->display();

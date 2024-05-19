@@ -41,7 +41,7 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-	_movement_speed = 700.0f;					// Movespeed for the game.
+	_movement_speed = 600.0f;					// Movespeed for the game.
 
 	_current_frame = 0;	
 	_frame_width = _powerup.getSize().x / 10;
@@ -54,16 +54,18 @@ Player::Player()
 	_is_jumping = false;
 
 	_heart_taken = false;						// Used for TakeDamage()
+
+	
 }
 
 Player::~Player()
 {
+
 }
 
 // Functions
 void Player::Update()
 {
-	
 	sf::Vector2f movement(0.0f, 0.0f);				// Handles player movement.
 
 	// Handles movement for the player class along with sprite switching from direction.
@@ -95,17 +97,20 @@ void Player::Update()
 		//Move(1.f, 0.f);
 		movement.x += _movement_speed * delta_time;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		_sprite.setTexture(_jump);
-		GetFrameWidth(_jump, 6);
-		Animate(6);
+	
+	// Disable W button because want to use w on special occasions such as "climbing ladder, power up on statues, etc"
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	//{
+	//	_sprite.setTexture(_jump);
+	//	GetFrameWidth(_jump, 6);
+	//	Animate(6);
 
-		// Need to implement jump without holding down button.
-		//Move(0.f, -3.f);
+	//	// Need to implement jump without holding down button.
+	//	//Move(0.f, -3.f);
 
-		movement.y -= _movement_speed * delta_time;
-	}
+	//	movement.y -= _movement_speed * delta_time;
+	//}
+
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		_sprite.setTexture(_falling);
@@ -148,9 +153,12 @@ void Player::Update()
 		GetFrameWidth(_idle, 4);
 		Animate(4);
 	}
+	
+	
 
 	// Move the sprite
 	_sprite.move(movement);
+
 }
 
 void Player::Render(sf::RenderTarget& target)

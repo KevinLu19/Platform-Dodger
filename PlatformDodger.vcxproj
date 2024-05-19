@@ -138,11 +138,12 @@
     <ClCompile Include="Diamond.cpp" />
     <ClCompile Include="DiamondItem.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InteractiveObject.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformDodger.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerHeart.cpp" />
-    <ClCompile Include="PlayerPoints.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -150,10 +151,11 @@
     <ClInclude Include="Diamond.h" />
     <ClInclude Include="DiamondItem.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InteractiveObject.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerHeart.h" />
-    <ClInclude Include="PlayerPoints.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

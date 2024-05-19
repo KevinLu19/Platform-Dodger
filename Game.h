@@ -3,9 +3,11 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Diamond.h"
-#include "PlayerPoints.h"
 #include <vector>
 #include "Platform.h"
+#include "InteractiveObject.h"
+#include "Map.h"
+#include <iostream>
 
 /*
 	Game class acts like a game engine.
@@ -30,7 +32,9 @@ private:
 	Player* _player;	
 	Bullet* _bullet;
 	Diamond* _diamond;
+	InteractiveObject * _game_obj;
 
+	Map * _map;
 
 	// 3 Lives total for the player.
 	PlayerHeart * _player_heart;
