@@ -24,7 +24,7 @@ void Game::InitPlayer()
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
 	
-	this->_game_obj = new InteractiveObject(1100, 490);
+	this->_game_obj = new InteractiveObject(950, 550);
 
 	//this->_platform = new Platform(sf::Vector2f(600.f, 300.f));
 

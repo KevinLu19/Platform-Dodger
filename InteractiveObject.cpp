@@ -14,7 +14,7 @@ void InteractiveObject::InitSprite()
 
 	_rect_sprite = sf::IntRect(0, 0, 38, 75);
 
-	_sprite.scale(2.f, 2.f);
+	_sprite.scale(1.5f, 1.5f);
 }
 
 // Const 
