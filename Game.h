@@ -8,6 +8,7 @@
 #include "InteractiveObject.h"
 #include "Map.h"
 #include <iostream>
+#include "PlayerCamera.h"
 
 /*
 	Game class acts like a game engine.
@@ -33,6 +34,8 @@ private:
 	Bullet* _bullet;
 	Diamond* _diamond;
 	InteractiveObject * _game_obj;
+
+	PlayerCamera * _player_camera;
 
 	Map * _map;
 

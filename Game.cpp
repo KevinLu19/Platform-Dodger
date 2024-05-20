@@ -23,6 +23,9 @@ void Game::InitPlayer()
 	this->_player = new Player();
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
+
+	sf::FloatRect world_bounds(0.f, 0.f, 1600.f, 1200.f);
+	this->_player_camera = new PlayerCamera(800.f, 600.f, world_bounds);
 	
 	this->_game_obj = new InteractiveObject(950, 550);
 
@@ -120,7 +123,9 @@ void Game::Update()
 
 	_diamond->DiamondAnimate();
 
-	_player->Update();		// Handles player movement and animation.
+	_player->Update();												// Handles player movement and animation.
+	_player_camera->Update(_player->GetSprite().getPosition());		// Update camera to follow player.
+
 	Collision(_player->GetSprite(), _bullet->GetBulletSprite());
 
 	// Make bullet(s) travel across the screen by updating its position using set velocity.
@@ -136,6 +141,7 @@ void Game::Render()
 	// Draw game
 	_map->Render(*this->_window);												// Map
 	
+	_player_camera->ApplyTo(*this->_window);									// Apply camera view to window.
 	
 	// Render all the hearts in the heart vector.
 	for (auto & hearts : _hearts)
