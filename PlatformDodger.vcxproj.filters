@@ -39,9 +39,6 @@
     <ClCompile Include="DiamondItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InteractiveObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DiamondItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InteractiveObject.h">

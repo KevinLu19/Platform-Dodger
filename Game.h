@@ -4,7 +4,6 @@
 #include "Bullet.h"
 #include "Diamond.h"
 #include <vector>
-#include "Platform.h"
 #include "InteractiveObject.h"
 #include "Map.h"
 #include <iostream>
@@ -36,6 +35,7 @@ private:
 	InteractiveObject * _game_obj;
 
 	PlayerCamera * _player_camera;
+	sf::View hud_view;
 
 	Map * _map;
 

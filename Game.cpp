@@ -23,13 +23,17 @@ void Game::InitPlayer()
 	this->_player = new Player();
 	this->_bullet = new Bullet();
 	this->_diamond = new Diamond();
-
-	sf::FloatRect world_bounds(0.f, 0.f, 1600.f, 1200.f);
+	
+	// Creating player camera.
+	// Define world boundaries.
+	sf::FloatRect world_bounds(0.f, 0.f, 1600.f, 1200.f);					// Starts origin 0,0. 1600 units extend to right.
 	this->_player_camera = new PlayerCamera(800.f, 600.f, world_bounds);
 	
+	// Create HUD view (same size as window)
+	hud_view = sf::View(sf::FloatRect(0.f, 0.f, 800.f, 600.f));
+
 	this->_game_obj = new InteractiveObject(950, 550);
 
-	//this->_platform = new Platform(sf::Vector2f(600.f, 300.f));
 
 	_health = 3;												// 3 lives for the player.
 
@@ -142,12 +146,16 @@ void Game::Render()
 	_map->Render(*this->_window);												// Map
 	
 	_player_camera->ApplyTo(*this->_window);									// Apply camera view to window.
-	
+	_window->setView(hud_view);
+
 	// Render all the hearts in the heart vector.
 	for (auto & hearts : _hearts)
 	{
 		hearts.Render(*this->_window);
 	}
+
+
+	_player_camera->ApplyTo(*this->_window);
 
 	// Draw everything else.
 	_game_obj->Render(*this->_window);											// Statue that will be an interactive obj.
