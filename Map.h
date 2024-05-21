@@ -22,7 +22,7 @@ private:
 	sf::Sprite _sprite;
 
 	// Define collision areas manually.
-	std::vector<CollisionRect> _collision_areas;
+	std::vector<sf::IntRect> _collision_areas;
 
 
 
@@ -36,6 +36,8 @@ public:
 	void Render(sf::RenderWindow & target);
 
 	// Checking collisions.
-	void CheckCollision();
+	bool CheckCollision(const sf::Sprite & player);
+
+	std::vector<sf::IntRect> GetCollision();							// For debugging purposes.
 };
 

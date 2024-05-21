@@ -56,11 +56,14 @@ Player::Player()
 	_heart_taken = false;						// Used for TakeDamage()
 
 	_interactive_obj = new InteractiveObject();	// Objects such as statues, etc.
+
+	_map = new Map();							// Map used for checking collision with the map.
 }
 
 Player::~Player()
 {
 	delete this->_interactive_obj;
+	delete this->_map;
 }
 
 // Functions
@@ -147,6 +150,10 @@ void Player::Update()
 			}
 		}
 	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2))				// Testing map purposes.
+	{
+		_sprite.setPosition(50,400);
+	}
 	else
 	{
 		// Standing / Default sprite animation will be idle when no input in given.
@@ -164,6 +171,11 @@ void Player::Update()
 	//	// Do some kind of stat powerup or item power up here.
 	//	std::cout << "You've powered up" << std::endl;
 	//}
+
+	if (_map->CheckCollision(_sprite))
+	{
+		_sprite.move(-movement);										// Undo movement.
+	}
 
 	PowerUp(_interactive_obj->GetSprite());
 

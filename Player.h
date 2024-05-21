@@ -6,6 +6,7 @@
 #include "PlayerHeart.h"
 #include <vector>
 #include "InteractiveObject.h"
+#include "Map.h"
 
 
 class Player : PlayerHeart
@@ -60,6 +61,9 @@ private:
 
 	// For Interactive Objects such as statues
 	InteractiveObject * _interactive_obj;
+
+	// Map for checking collisions.
+	Map * _map;
 
 	// Private Functions
 	void initTexture();

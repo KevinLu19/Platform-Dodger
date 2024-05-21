@@ -26,7 +26,7 @@ void Game::InitPlayer()
 	
 	// Creating player camera.
 	// Define world boundaries.
-	sf::FloatRect world_bounds(0.f, 0.f, 1600.f, 1200.f);					// Starts origin 0,0. 1600 units extend to right.
+	sf::FloatRect world_bounds(0.f, 0.f, 2500.f, 2000.f);					// Starts origin 0,0. 1600 units extend to right.
 	this->_player_camera = new PlayerCamera(800.f, 600.f, world_bounds);
 	
 	// Create HUD view (same size as window)
@@ -118,12 +118,12 @@ void Game::Update()
 			this->_window->close();
 	}
 
-
 	// Animate hearts in the hearts vector.
 	for (auto& heart : _hearts)
 	{
 		heart.Animation();
 	}
+
 
 	_diamond->DiamondAnimate();
 
@@ -156,6 +156,20 @@ void Game::Render()
 
 
 	_player_camera->ApplyTo(*this->_window);
+
+
+	// Draw Collision areas for debugging purposes.
+	for (const auto& area : _map->GetCollision())
+	{
+		sf::RectangleShape rect;
+		
+		rect.setPosition(static_cast<float>(area.left), static_cast<float>(area.top));
+		rect.setSize(sf::Vector2f(static_cast<float>(area.width), static_cast<float>(area.height)));
+		rect.setFillColor(sf::Color(255, 0, 0, 100)); // Semi-transparent red
+		
+		this->_window->draw(rect);
+	}
+
 
 	// Draw everything else.
 	_game_obj->Render(*this->_window);											// Statue that will be an interactive obj.
