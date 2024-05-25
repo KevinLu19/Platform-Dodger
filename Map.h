@@ -2,10 +2,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "json.hpp"
 #include <fstream>
 
-using json = nlohmann::json;
 
 struct CollisionRect
 {
@@ -36,7 +34,7 @@ public:
 	void Render(sf::RenderWindow & target);
 
 	// Checking collisions.
-	bool CheckCollision(const sf::Sprite & player);
+	bool CheckCollision(const sf::Sprite & player, const sf::Vector2f & movement);
 
 	std::vector<sf::IntRect> GetCollision();							// For debugging purposes.
 };

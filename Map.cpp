@@ -20,7 +20,7 @@ Map::Map()
 	// Define collision areas to act as a wall.
 	_collision_areas = std::vector<sf::IntRect>
 	{
-		sf::IntRect(0, 520, 620, 280),					// left, top, width, height
+		sf::IntRect(0, 520, 600, 280),					// left, top, width, height
 	};
 }
 
@@ -34,7 +34,7 @@ void Map::Render(sf::RenderWindow& target)
 }
 
 // Using Pre-defined collision spots for collision detection to act as a "wall"
-bool Map::CheckCollision(const sf::Sprite & player)
+bool Map::CheckCollision(const sf::Sprite & player, const sf::Vector2f & movement)
 {
 	sf::FloatRect player_bound = player.getGlobalBounds();
 

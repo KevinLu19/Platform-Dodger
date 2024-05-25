@@ -41,7 +41,7 @@ Player::Player()
 {
 	this->initTexture();
 	this->initSprite();
-	_movement_speed = 600.0f;					// Movespeed for the game.
+	_movement_speed = 400.0f;					// Movespeed for the game.
 
 	_current_frame = 0;	
 	_frame_width = _powerup.getSize().x / 10;
@@ -161,21 +161,43 @@ void Player::Update()
 		GetFrameWidth(_idle, 4);
 		Animate(4);
 	}
-	
-	//// Checks if player bounding box intersets with interactive obj along with w is pressed, do power up animation. 
-	//if (_sprite.getGlobalBounds().intersects(_interactive_obj->GetSprite().getGlobalBounds()))
-	//{
-	//	_sprite.setTexture(_powerup);
-	//	Animate(10);
 
-	//	// Do some kind of stat powerup or item power up here.
-	//	std::cout << "You've powered up" << std::endl;
-	//}
-
-	if (_map->CheckCollision(_sprite))
+	// Check for collison separately for each direction.
+	if (movement.x != 0.f)
 	{
-		_sprite.move(-movement);										// Undo movement.
+		sf::Vector2f horizontal_movement(movement.x, 0.f);
+
+		_sprite.move(horizontal_movement);
+
+		if (_map->CheckCollision(_sprite, horizontal_movement))
+		{
+			_sprite.move(-horizontal_movement);							// Undo horizontal movement.
+			movement.x = 0.f;											// Stop horizonal movement.
+		}
 	}
+
+	if (movement.y != 0.f)
+	{
+		sf::Vector2f vertical_movement(0.f, movement.y);
+
+		_sprite.move(vertical_movement);
+
+		if (_map->CheckCollision(_sprite, vertical_movement))
+		{
+			_sprite.move(-vertical_movement);
+			movement.y = 0.f;
+		}
+	}
+
+	//// Collision with the defined sprite.
+	//if (_map->CheckCollision(_sprite))
+	//{
+	//	//_sprite.move(-movement);										// Undo movement.
+	//	
+	//	// Stop players movement when trying to move towards the predefined wall but not make the player stuck.
+	//	std::cout << "Collided with collision" << std::endl;
+	//	std::cout << "--------" << std::endl;
+	//}
 
 	PowerUp(_interactive_obj->GetSprite());
 
