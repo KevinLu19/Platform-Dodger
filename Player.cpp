@@ -102,18 +102,20 @@ void Player::Update()
 	}
 	
 	//Disable W button because want to use w on special occasions such as "climbing ladder, power up on statues, etc"
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	//{
-	//	//_sprite.setTexture(_jump);
-	//	//GetFrameWidth(_jump, 6);
-	//	//Animate(6);
 
-	//	//// Need to implement jump without holding down button.
-	//	////Move(0.f, -3.f);
+	// Enable for testing purposes
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		_sprite.setTexture(_jump);
+		GetFrameWidth(_jump, 6);
+		Animate(6);
 
-	//	//movement.y -= _movement_speed * delta_time;
+		// Need to implement jump without holding down button.
+		//Move(0.f, -3.f);
 
-	//}
+		movement.y -= _movement_speed * delta_time;
+
+	}
 
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -176,6 +178,7 @@ void Player::Update()
 		}
 	}
 
+	// Check collision for y position.
 	if (movement.y != 0.f)
 	{
 		sf::Vector2f vertical_movement(0.f, movement.y);
@@ -189,15 +192,7 @@ void Player::Update()
 		}
 	}
 
-	//// Collision with the defined sprite.
-	//if (_map->CheckCollision(_sprite))
-	//{
-	//	//_sprite.move(-movement);										// Undo movement.
-	//	
-	//	// Stop players movement when trying to move towards the predefined wall but not make the player stuck.
-	//	std::cout << "Collided with collision" << std::endl;
-	//	std::cout << "--------" << std::endl;
-	//}
+	// Need to add Gravity that rests on the pre-definied collision areas.
 
 	PowerUp(_interactive_obj->GetSprite());
 

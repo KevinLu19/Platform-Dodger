@@ -20,7 +20,10 @@ Map::Map()
 	// Define collision areas to act as a wall.
 	_collision_areas = std::vector<sf::IntRect>
 	{
-		sf::IntRect(0, 520, 600, 280),					// left, top, width, height
+		sf::IntRect(0, 530, 600, 280),					// left, top, width, height
+		sf::IntRect(0, 800, 400, 150),					// Bottom portion of the left platform.
+		sf::IntRect(0, 900, 255, 500),
+		sf::IntRect(280, 1200, 290, 200),
 	};
 }
 
