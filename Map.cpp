@@ -24,6 +24,9 @@ Map::Map()
 		sf::IntRect(0, 800, 400, 150),					// Bottom portion of the left platform.
 		sf::IntRect(0, 900, 255, 500),
 		sf::IntRect(280, 1200, 290, 200),
+		sf::IntRect(600, 1290, 970, 300),
+		sf::IntRect(1600, 1322, 300, 300),
+		sf::IntRect(1950, 1295, 500, 500)
 	};
 }
 
