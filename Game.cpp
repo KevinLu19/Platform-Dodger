@@ -158,17 +158,17 @@ void Game::Render()
 	_player_camera->ApplyTo(*this->_window);
 
 
-	// Draw Collision areas for debugging purposes.
-	for (const auto& area : _map->GetCollision())
-	{
-		sf::RectangleShape rect;
-		
-		rect.setPosition(static_cast<float>(area.left), static_cast<float>(area.top));
-		rect.setSize(sf::Vector2f(static_cast<float>(area.width), static_cast<float>(area.height)));
-		rect.setFillColor(sf::Color(255, 0, 0, 100)); // Semi-transparent red
-		
-		this->_window->draw(rect);
-	}
+	//// Draw Collision areas for debugging purposes.
+	//for (const auto& area : _map->GetCollision())
+	//{
+	//	sf::RectangleShape rect;
+	//	
+	//	rect.setPosition(static_cast<float>(area.left), static_cast<float>(area.top));
+	//	rect.setSize(sf::Vector2f(static_cast<float>(area.width), static_cast<float>(area.height)));
+	//	rect.setFillColor(sf::Color(255, 0, 0, 100)); // Semi-transparent red
+	//	
+	//	this->_window->draw(rect);
+	//}
 
 
 	// Draw everything else.

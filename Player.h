@@ -37,6 +37,8 @@ private:
 	sf::Vector2f _velocity;
 	float delta_time;
 
+	float _gravity_y;
+
 	// For Jumping
 	float _jump_velocity;
 	bool _is_jumping;

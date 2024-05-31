@@ -26,7 +26,9 @@ Map::Map()
 		sf::IntRect(280, 1200, 290, 200),
 		sf::IntRect(600, 1290, 970, 300),
 		sf::IntRect(1600, 1322, 300, 300),
-		sf::IntRect(1950, 1295, 500, 500)
+		sf::IntRect(1950, 1295, 500, 500),
+		sf::IntRect(990, 500, 350, 100),				// Floating Platforms
+		sf::IntRect(2115, 430, 300, 100)
 	};
 }
 

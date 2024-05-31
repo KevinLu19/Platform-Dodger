@@ -49,7 +49,7 @@ Player::Player()
 	_sprite.setPosition(600.f, 300.f);			// Initial position for player sprite.
 	delta_time = _clock.restart().asSeconds();	// Clock used for movement per second. Clock runs per second.
 
-	_gravity = 100.0f;							// Gravity strength.
+	_gravity = 9.8f;							// Gravity strength.
 	_jump_velocity = 0.0f;
 	_is_jumping = false;
 
@@ -193,7 +193,10 @@ void Player::Update()
 	}
 
 	// Need to add Gravity that rests on the pre-definied collision areas.
+	_gravity_y += _gravity * delta_time;
 
+	
+	
 	PowerUp(_interactive_obj->GetSprite());
 
 	// Move the sprite
